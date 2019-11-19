@@ -11,7 +11,8 @@ namespace DomainLayer
     {
         public void test()
         {
-            DataLayer.TableGateway.ReaderGateway.find(1);
+            DataLayer.Mapper.ReaderMapper reader = new DataLayer.Mapper.ReaderMapper();
+            reader.find(1);
         }
     }
 }

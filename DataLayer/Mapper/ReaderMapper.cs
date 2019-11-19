@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using DTO;
 
 namespace DataLayer.Mapper
 {
@@ -15,18 +16,28 @@ namespace DataLayer.Mapper
         {
             xmlDocument.Load("uzivatele.xml");
         }
-        public Objects.Reader find(int id)
+        public Reader findReader(int id)
         {
-            Objects.Reader reader = new Objects.Reader();
+            Reader reader = new Reader();
 
-            var node = xmlDocument.DocumentElement.SelectSingleNode("/uzivatele/citetele/citatel[@id=1]");
+            var node = xmlDocument.DocumentElement.SelectSingleNode("/uzivatele/citatele/citatel[@id="+id+"]");
             reader.jmeno = node.ChildNodes[0].ToString();
             reader.prijmeni = node.ChildNodes[1].ToString();
             reader.adresa = node.ChildNodes[2].ToString();
-
-            Console.WriteLine();
-
             return reader;
         }
+        public void deleteReader(Reader reader)
+        {
+            
+        }
+        public void insertReader(Reader reader)
+        {
+
+        }
+        public void updateReader(Reader reader)
+        {
+
+        }
+
     }
 }

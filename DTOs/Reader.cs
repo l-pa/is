@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Objects
+namespace DTO
 {
-   public class Reader
+    public class Reader
     {
         public int id;
         public string jmeno;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataLayer.Objects
+namespace DTO
 {
     public class Condition
     {

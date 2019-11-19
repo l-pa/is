@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E01F676-75A5-4B6F-BA7B-A44C5DC73BA6}</ProjectGuid>
+    <ProjectGuid>{1201CA40-2689-48BD-8710-62AEE6DE0A53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DomainLayer</RootNamespace>
-    <AssemblyName>DomainLayer</AssemblyName>
+    <RootNamespace>DTOs</RootNamespace>
+    <AssemblyName>DTOs</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,18 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="Reader.cs" />
+    <Compile Include="Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
-      <Project>{fdc15c1e-1fd7-4040-8f9b-88751c4e758c}</Project>
-      <Name>DataLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DTOs\DTOs.csproj">
-      <Project>{1201ca40-2689-48bd-8710-62aee6de0a53}</Project>
-      <Name>DTOs</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
