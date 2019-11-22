@@ -12,7 +12,7 @@ namespace DomainLayer
         public void test()
         {
             DataLayer.Mapper.ReaderMapper reader = new DataLayer.Mapper.ReaderMapper();
-            reader.find(1);
+       //     reader.find(1);
         }
     }
 }

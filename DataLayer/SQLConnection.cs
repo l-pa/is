@@ -5,14 +5,17 @@ using System.Data.SqlClient;
 
 namespace DataLayer
 {
-    public class SQLDatabase
+    public class SQLConnection
     {
         public SqlConnection connection { get; }
         private const string connectionString = "Server=den1.mssql8.gear.host;Database=visproject;User Id=visproject;Password=Visvis*;";
 
-        public SQLDatabase()
+        public SQLConnection()
         {
-            connection = new SqlConnection(connectionString);
+            if (connection == null)
+            {
+                connection = new SqlConnection(connectionString);
+            }
         }
 
         public void Connect()

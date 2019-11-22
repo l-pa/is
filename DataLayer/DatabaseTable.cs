@@ -10,18 +10,19 @@ namespace DataLayer
 {
     public static class DatabaseTable
     {
-        public static DataTable Query(SQLDatabase database, string sqlString, string table)
+        public static DataTable Query(SQLConnection database, string sqlString, string table)
         {
             return Query(database, sqlString, null, table);
         }
 
-        public static DataTable Query(SQLDatabase database, string sqlString, Dictionary<string, string> arguments, string table)
+        public static DataTable Query(SQLConnection database, string sqlString, Dictionary<string, string> arguments, string table)
         {
             DataTable records;
 
             database.Connect();
             using (var command = PrepareCommand(database, sqlString, arguments))
             {
+                Console.WriteLine(command.CommandText);
                 using (var adapter = new SqlDataAdapter(command))
                 {
                     using (var ds = new DataSet())
@@ -36,12 +37,12 @@ namespace DataLayer
             return records;
         }
 
-        public static int NonQuery(SQLDatabase database, string sqlString)
+        public static int NonQuery(SQLConnection database, string sqlString)
         {
             return NonQuery(database, sqlString, null);
         }
 
-        public static int NonQuery(SQLDatabase database, string sqlString, Dictionary<string, string> args)
+        public static int NonQuery(SQLConnection database, string sqlString, Dictionary<string, string> args)
         {
             int rowNumber;
 
@@ -55,11 +56,11 @@ namespace DataLayer
             return rowNumber;
         }
 
-        public static object Scalar(SQLDatabase database, string sqlString)
+        public static object Scalar(SQLConnection database, string sqlString)
         {
             return Scalar(database, sqlString, null);
         }
-        public static object Scalar(SQLDatabase database, string sqlString, Dictionary<string, string> args)
+        public static object Scalar(SQLConnection database, string sqlString, Dictionary<string, string> args)
         {
             object result;
 
@@ -73,7 +74,7 @@ namespace DataLayer
             return result;
         }
 
-        private static SqlCommand PrepareCommand(SQLDatabase database, string sqlString, Dictionary<string, string> args)
+        private static SqlCommand PrepareCommand(SQLConnection database, string sqlString, Dictionary<string, string> args)
         {
             var command = new SqlCommand(sqlString, database.connection);
             if (args == null) return command;
