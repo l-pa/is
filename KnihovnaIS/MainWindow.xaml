@@ -52,7 +52,12 @@
                     <ColumnDefinition Width="537*"/>
                     <ColumnDefinition Width="97*"/>
                 </Grid.ColumnDefinitions>
-                <ListView Margin="10" Name="lvBooks" Grid.ColumnSpan="2">
+                <ListView Margin="10" Name="lvBooks" Grid.ColumnSpan="2" ScrollBar.Scroll="lvBooks_Scroll">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Height" Value="70" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Nazev" Width="120" DisplayMemberBinding="{Binding nazev}" />
