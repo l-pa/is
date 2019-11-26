@@ -38,13 +38,27 @@ namespace DataLayer.Mapper
 
             return books;
         }
+
+        public bool checkBookReservation(DateTime start, DateTime end)
+        {
+            Dictionary<string, string> dates = new Dictionary<string, string>();
+            dates.Add("%od", start.Year + "" + start.Month + "" + start.Day);
+            dates.Add("%do", end.Year + "" + end.Month + "" + end.Day);
+            DataTable result = DatabaseTable.Query(BookMapper.sqlDatabase, "SELECT * FROM rezervace WHERE %od >= datum_od AND datum_do <= %do ", dates, "rezervace");
+            if (result.Rows.Count == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
         public void insertBook(Book book)
         {
             
         }
         public void deleteBook(Book book)
         {
-
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
             keyValues.Add("@id", book.id.ToString());
             DatabaseTable.Query(sqlDatabase, "DELETE FROM kniha WHERE id = @id", keyValues, "kniha");

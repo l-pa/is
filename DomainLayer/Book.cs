@@ -17,17 +17,32 @@ namespace DomainLayer
         }
         public void reservateBook(Book book, Reader reader)
         {
-            
+            // Datetime from user input
+            if (bookMapper.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
+            {
+                // ReservateMapper
+            } else
+            {
+                // Show nearest available reservation / error
+
+            }
         }
 
-        public void extendReservation(Book book, Reader reader)
+        public void extendReservation(Book book, Reader reader, Reservation reservation)
         {
-
+            if (bookMapper.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
+            {
+                // Add new reservation
+            }
+            else
+            {
+                // If same book exists and doesnt have reservation show dialog
+            }
         }
 
         public void deleteBook(Book book)
         {
-
+            // Check for reservation / land
         }
     }
 }
