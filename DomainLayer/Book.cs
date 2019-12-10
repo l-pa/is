@@ -3,22 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO;
-using DataLayer.Mapper;
+using DataLayer.Gateway;
 
 namespace DomainLayer
 {
     public class Book
     {
-        BookMapper bookMapper = new BookMapper();
+        public int id;
+        public String nazev;
+        public String autor;
+        public String jazyk;
+        public DateTime? rok_vydani;
+        public String ISBN;
+        public String zanr;
+        public String vydavatel;
+        public State stav;
+
+        BookGateway bookGateway = new BookGateway();
+
         public List<DTO.Book> findBook(String query)
         {
-           return bookMapper.findBook(query);
+           return bookGateway.findBook(query);
         }
         public void reservateBook(Book book, Reader reader)
         {
             // Datetime from user input
-            if (bookMapper.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
+            if (bookGateway.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
             {
                 // ReservateMapper
             } else
@@ -30,9 +40,9 @@ namespace DomainLayer
 
         public void extendReservation(Book book, Reader reader, Reservation reservation)
         {
-            if (bookMapper.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
+            if (!bookGateway.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
             {
-                // Add new reservation
+                
             }
             else
             {
@@ -42,7 +52,24 @@ namespace DomainLayer
 
         public void deleteBook(Book book)
         {
-            // Check for reservation / land
+            DTO.Book book1 = new DTO.Book();
+            book1.nazev = nazev;
+            bookGateway.deleteBook(book1);
+        }
+
+        public int checkDeleteBook(DTO.Book book)
+        {
+            if (land.isLandedAtMomement(book))
+            {
+                return 1;
+            } else if (reservation.isReservatedAtMomement(book))
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿<Window x:Class="KnihovnaIS.Detail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KnihovnaIS"
+        mc:Ignorable="d"
+        Title="Detail" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold" FontSize="30">Detail</Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Nazev</Label>
+            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Jazyk</Label>
+            <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Zanr</Label>
+            <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Stav</Label>
+            <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">Vypujcena</Label>
+
+            <Label Name="name" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="language" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="genre" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="state" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="landed" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+
+            <Label Name="author" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Autor</Label>
+            <Label Name="publishYear" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Rok vydani</Label>
+            <Label Name="isbn" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">ISBN</Label>
+            <Label Name="lastReservation" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Posledni rezervace</Label>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="deleteButton" Margin="10" Grid.Row="2" Grid.Column="0" Click="deleteButton_Click">Odstranit</Button>
+            <Button Name="editButton" Margin="10" Grid.Row="2" Grid.Column="1">Upravit</Button>
+            <Button Name="landButton" Margin="10" Grid.Row="2" Grid.Column="2">Vypujcit</Button>
+            <Button Name="reservateButton" Margin="10" Grid.Row="2" Grid.Column="3">Rezervovat</Button>
+            <Button Name="cancelButton" Margin="10" Grid.Row="2" Grid.Column="4" Click="cancelButton_Click">Zrusit</Button>
+
+
+        </Grid>
+    </Grid>
+</Window>

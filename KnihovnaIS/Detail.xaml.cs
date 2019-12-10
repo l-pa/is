@@ -5,41 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DomainLayer;
-using DTO;
 
 namespace KnihovnaIS
 {
     /// <summary>
-    /// Interakční logika pro MainWindow.xaml
+    /// Interaction logic for Detail.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Detail : Window
     {
-        public MainWindow()
+        public Detail(DTO.Book book)
         {
             InitializeComponent();
-
+            name.Content = book.nazev;
+            language.Content = book.jazyk;
+            genre.Content = book.zanr;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new Search();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             
         }

@@ -5,21 +5,26 @@ using System.Data.SqlClient;
 using DTO;
 using System.Data;
 
-namespace DataLayer.Mapper
+namespace DataLayer.Gateway
 {
-    public class BookMapper
+    public class BookGateway
     {
-        public static SQLConnection sqlDatabase = new SQLConnection();
+        SQLConnection sqlDatabase = new SQLConnection();
         IdentityMap<string> identityMap;
-        public BookMapper()
+        public BookGateway()
         {
             sqlDatabase.Connect();
             identityMap = new IdentityMap<string>();
         }
         public List<DTO.Book> findBook(string query) {
             List<Book> books = new List<Book>();
-
-            DataTable result = identityMap.identity(query);
+            
+            if (!identityMap.dictionary.ContainsKey(query))
+            {
+                DataTable queryResult = DatabaseTable.Query(sqlDatabase, "SELECT * FROM kniha WHERE nazev + autor + vydavatelstvi + isbn LIKE '%" + query + "%'", null, "kniha");
+                identityMap.dictionary[query] = queryResult;
+            }
+            DataTable result = identityMap.dictionary[query];
 
             for (int i = 0; i < result.Rows.Count; i++)
             {
@@ -44,7 +49,7 @@ namespace DataLayer.Mapper
             Dictionary<string, string> dates = new Dictionary<string, string>();
             dates.Add("%od", start.Year + "" + start.Month + "" + start.Day);
             dates.Add("%do", end.Year + "" + end.Month + "" + end.Day);
-            DataTable result = DatabaseTable.Query(BookMapper.sqlDatabase, "SELECT * FROM rezervace WHERE %od >= datum_od AND datum_do <= %do ", dates, "rezervace");
+            DataTable result = DatabaseTable.Query(sqlDatabase, "SELECT * FROM rezervace WHERE %od >= datum_od AND datum_do <= %do ", dates, "rezervace");
             if (result.Rows.Count == 0)
             {
                 return true;

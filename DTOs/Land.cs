@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Mapper
+namespace DTO
 {
-    class ReservationMapper
+    public class Land
     {
+        public int id;
     }
 }

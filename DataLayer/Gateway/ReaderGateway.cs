@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using DTO;
 
-namespace DataLayer.Mapper
+namespace DataLayer.Gateway
 {
-    public class ReaderMapper
+    public class ReaderGateway
     {
         private XmlDocument xmlDocument = new XmlDocument();
 
-        public ReaderMapper()
+        public ReaderGateway()
         {
             xmlDocument.Load("uzivatele.xml");
         }

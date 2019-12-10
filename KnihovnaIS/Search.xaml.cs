@@ -18,11 +18,35 @@ namespace KnihovnaIS
     /// <summary>
     /// Interaction logic for Search.xaml
     /// </summary>
-    public partial class Search : PageFunction<String>
+    public partial class Search : Page
     {
+        DomainLayer.Book books = new DomainLayer.Book();
+
         public Search()
         {
             InitializeComponent();
+        }
+
+        private void lvBooks_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<DTO.Book> booksList = books.findBook(searchInput.Text);
+            lvBooks.ItemsSource = booksList;
+            if (booksList.Count == 0)
+            {
+                MessageBox.Show("No books");
+            }
+        }
+
+        private void clickDetail_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Detail detail = new Detail((DTO.Book)btn.Tag);
+            detail.Show();
         }
     }
 }
