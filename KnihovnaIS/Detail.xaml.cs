@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DomainLayer;
 
 namespace KnihovnaIS
 {
@@ -19,7 +20,7 @@ namespace KnihovnaIS
     /// </summary>
     public partial class Detail : Window
     {
-        public Detail(DTO.Book book)
+        public Detail(Book book)
         {
             InitializeComponent();
             name.Content = book.nazev;

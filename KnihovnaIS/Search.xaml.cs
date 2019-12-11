@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DomainLayer;
 
 namespace KnihovnaIS
 {
@@ -20,7 +21,7 @@ namespace KnihovnaIS
     /// </summary>
     public partial class Search : Page
     {
-        DomainLayer.Book books = new DomainLayer.Book();
+        Book books = new Book();
 
         public Search()
         {
@@ -34,7 +35,7 @@ namespace KnihovnaIS
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            List<DTO.Book> booksList = books.findBook(searchInput.Text);
+            List<Book> booksList = books.findBook(searchInput.Text);
             lvBooks.ItemsSource = booksList;
             if (booksList.Count == 0)
             {
@@ -45,7 +46,7 @@ namespace KnihovnaIS
         private void clickDetail_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            Detail detail = new Detail((DTO.Book)btn.Tag);
+            Detail detail = new Detail((Book)btn.Tag);
             detail.Show();
         }
     }

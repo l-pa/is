@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DomainLayer
 {
-    public class Worker : IPerson
+    public class Worker : Person
     {
+        public Worker() : base("","", "", "")
+        {
+            
+        }
         public int mzda;
         public string pozice;
 
-        public string jmeno { get; set; }
-        public string prijmeni { get; set; }
-        public string adresa { get; set; }
-        public string email { get; set; }
     }
 }

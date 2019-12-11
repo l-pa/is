@@ -44,28 +44,21 @@ namespace DataLayer.Gateway
             return books;
         }
 
-        public bool checkBookReservation(DateTime start, DateTime end)
+        public DataTable checkBookReservation(DateTime start, DateTime end)
         {
             Dictionary<string, string> dates = new Dictionary<string, string>();
             dates.Add("%od", start.Year + "" + start.Month + "" + start.Day);
             dates.Add("%do", end.Year + "" + end.Month + "" + end.Day);
-            DataTable result = DatabaseTable.Query(sqlDatabase, "SELECT * FROM rezervace WHERE %od >= datum_od AND datum_do <= %do ", dates, "rezervace");
-            if (result.Rows.Count == 0)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return DatabaseTable.Query(sqlDatabase, "SELECT * FROM rezervace WHERE %od >= datum_od AND datum_do <= %do ", dates, "rezervace");
         }
         public void insertBook(Book book)
         {
             
         }
-        public void deleteBook(Book book)
+        public void deleteBook(int id)
         {
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
-            keyValues.Add("@id", book.id.ToString());
+            keyValues.Add("@id", id.ToString());
             DatabaseTable.Query(sqlDatabase, "DELETE FROM kniha WHERE id = @id", keyValues, "kniha");
         }
         public void updateBook(Book book)

@@ -10,64 +10,94 @@ namespace DomainLayer
     public class Book
     {
         public int id;
-        public String nazev;
-        public String autor;
-        public String jazyk;
+        public string nazev;
+        public string autor;
+        public string jazyk;
         public DateTime? rok_vydani;
-        public String ISBN;
-        public String zanr;
-        public String vydavatel;
+        public string ISBN;
+        public string zanr;
+        public string vydavatel;
         public State stav;
 
-        BookGateway bookGateway = new BookGateway();
+        private Reader reader;
+        private Land land;
 
-        public List<DTO.Book> findBook(String query)
+        private Reservation reservation;
+
+        BookGateway bookGateway = new BookGateway();
+        public Book()
         {
-           return bookGateway.findBook(query);
+
         }
-        public void reservateBook(Book book, Reader reader)
+        public Book(DTO.Book book)
+        {
+            id = book.id;
+            nazev = book.nazev;
+            autor = book.autor;
+            jazyk = book.jazyk;
+            rok_vydani = book.rok_vydani;
+            ISBN = book.ISBN;
+            zanr = book.zanr;
+            vydavatel = book.vydavatel;
+            stav = null;
+
+            reservation = new Reservation(this, reader);
+            land = new Land(this);
+        }
+
+        public List<Book> findBook(String query)
+        {
+            List<Book> domainBooks = new List<Book>();
+            var books = bookGateway.findBook(query);
+           foreach (var book in books)
+            {
+                domainBooks.Add(new Book(book));
+            }
+            return domainBooks;
+        }
+        public void reservateBook(Reader reader, Reservation reservation)
         {
             // Datetime from user input
-            if (bookGateway.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
-            {
-                // ReservateMapper
-            } else
-            {
-                // Show nearest available reservation / error
+            //if (bookGateway.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
+            //{
+            //    // ReservateMapper
+            //} else
+            //{
+            //    // Show nearest available reservation / error
 
-            }
+            //}
         }
 
-        public void extendReservation(Book book, Reader reader, Reservation reservation)
+        public void extendReservation(Reader reader, Reservation reservation)
         {
-            if (!bookGateway.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
-            {
+            //if (!bookGateway.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
+            //{
                 
-            }
-            else
-            {
-                // If same book exists and doesnt have reservation show dialog
-            }
+            //}
+            //else
+            //{
+            //    // If same book exists and doesnt have reservation show dialog
+            //}
         }
 
-        public void deleteBook(Book book)
+        public void deleteWithReservations()
         {
-            DTO.Book book1 = new DTO.Book();
-            book1.nazev = nazev;
-            bookGateway.deleteBook(book1);
+            reservation.deleteBookReservations();
+            deleteBook();
         }
 
-        public int checkDeleteBook(DTO.Book book)
+        internal int deleteBook()
         {
-            if (land.isLandedAtMomement(book))
+            if (land.isLanded())
             {
                 return 1;
-            } else if (reservation.isReservatedAtMomement(book))
+            } else if (reservation.isReservated())
             {
                 return 2;
             }
             else
             {
+                bookGateway.deleteBook(id);
                 return 0;
             }
         }
