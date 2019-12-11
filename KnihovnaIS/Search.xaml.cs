@@ -33,7 +33,7 @@ namespace KnihovnaIS
 
         }
 
-        private void searchButton_Click(object sender, RoutedEventArgs e)
+        public void updateList()
         {
             List<Book> booksList = books.findBook(searchInput.Text);
             lvBooks.ItemsSource = booksList;
@@ -43,11 +43,23 @@ namespace KnihovnaIS
             }
         }
 
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            updateList();
+        }
+
         private void clickDetail_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
             Detail detail = new Detail((Book)btn.Tag);
             detail.Show();
+
+            detail.Closed += detailClosed;
+        }
+
+        private void detailClosed(object sender, EventArgs e)
+        {
+            updateList();
         }
     }
 }

@@ -9,25 +9,25 @@ namespace DomainLayer
 {
     public class Book
     {
-        public int id;
-        public string nazev;
-        public string autor;
-        public string jazyk;
-        public DateTime? rok_vydani;
-        public string ISBN;
-        public string zanr;
-        public string vydavatel;
-        public State stav;
+        public int id { get; set; }
+        public string nazev { get; set; }
+        public string autor { get; set; }
+        public string jazyk { get; set; }
+        public DateTime? rok_vydani { get; set; }
+        public string ISBN { get; set; }
+        public string zanr { get; set; }
+        public string vydavatel { get; set; }
+        public State stav { get; set; }
 
         private Reader reader;
         private Land land;
 
         private Reservation reservation;
 
-        BookGateway bookGateway = new BookGateway();
+        BookGateway bookGateway;
         public Book()
         {
-
+            bookGateway = new BookGateway();
         }
         public Book(DTO.Book book)
         {
@@ -41,8 +41,10 @@ namespace DomainLayer
             vydavatel = book.vydavatel;
             stav = null;
 
+            bookGateway = new BookGateway();
             reservation = new Reservation(this, reader);
             land = new Land(this);
+
         }
 
         public List<Book> findBook(String query)
@@ -80,13 +82,13 @@ namespace DomainLayer
             //}
         }
 
-        public void deleteWithReservations()
+        public int deleteWithReservations()
         {
             reservation.deleteBookReservations();
-            deleteBook();
+            return deleteBook();
         }
 
-        internal int deleteBook()
+        public int deleteBook()
         {
             if (land.isLanded())
             {

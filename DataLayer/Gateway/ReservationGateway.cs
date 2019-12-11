@@ -11,16 +11,6 @@ namespace DataLayer.Gateway
     {
         SQLConnection sqlDatabase = new SQLConnection();
 
-        public void addReservation(Reservation reservation)
-        {
-            Dictionary<string, string> keyValues = new Dictionary<string, string>();
-            keyValues.Add("@id", reservation.id.ToString());
-            keyValues.Add("@od", reservation.startOfReservation.ToString());
-            keyValues.Add("@do", reservation.endOfReservation.ToString());
-            keyValues.Add("@co", reservation.reservatedBook.id.ToString());
-            var query = DatabaseTable.Query(sqlDatabase, "INSERT INTO rezervace values ( id = @id AND ", keyValues, "rezervace"); // TODO
-        }
-
         public List<DTO.Reservation> findById(Book book)
         {
             List<DTO.Reservation> reservations = new List<Reservation>();
@@ -40,12 +30,12 @@ namespace DataLayer.Gateway
             return reservations;
         }
 
-        public List<DTO.Reservation> isReservated(int id)
+        public List<DTO.Reservation> dateReservations(int id)
         {
             List<DTO.Reservation> reservations = new List<Reservation>();
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
             keyValues.Add("@id", id.ToString());
-            var result = DatabaseTable.Query(sqlDatabase, "select * from vypujcka where kniha_id = @id and GETDATE() between datum_od and datum_do", keyValues, "rezervace");
+            var result = DatabaseTable.Query(sqlDatabase, "select * from rezervace where kniha_id = @id and GETDATE() between datum_od and datum_do", keyValues, "rezervace");
             for (int i = 0; i < result.Rows.Count; i++)
             {
                 DTO.Reservation reservation = new Reservation();

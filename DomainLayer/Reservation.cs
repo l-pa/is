@@ -25,7 +25,7 @@ namespace DomainLayer
 
         public bool isReservated()
         {
-            if (reservationGateway.isReservated(reservatedBook.id).Count > 0)
+            if (reservationGateway.dateReservations(reservatedBook.id).Count > 0)
             {
                 return true;
             } else

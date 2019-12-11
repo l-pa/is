@@ -9,16 +9,23 @@ namespace DataLayer.Gateway
 {
     public class BookGateway
     {
-        SQLConnection sqlDatabase = new SQLConnection();
-        IdentityMap<string> identityMap;
+        private static SQLConnection sqlDatabase; //  = new SQLConnection();
+        private static IdentityMap<string> identityMap;
         public BookGateway()
         {
-            sqlDatabase.Connect();
+            if (sqlDatabase == null)
+            {
+                sqlDatabase = new SQLConnection();
+                sqlDatabase.Connect();
+            }
+            if (identityMap == null)
+            {
             identityMap = new IdentityMap<string>();
+            }
         }
+
         public List<DTO.Book> findBook(string query) {
             List<Book> books = new List<Book>();
-            
             if (!identityMap.dictionary.ContainsKey(query))
             {
                 DataTable queryResult = DatabaseTable.Query(sqlDatabase, "SELECT * FROM kniha WHERE nazev + autor + vydavatelstvi + isbn LIKE '%" + query + "%'", null, "kniha");
@@ -59,11 +66,8 @@ namespace DataLayer.Gateway
         {
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
             keyValues.Add("@id", id.ToString());
-            DatabaseTable.Query(sqlDatabase, "DELETE FROM kniha WHERE id = @id", keyValues, "kniha");
-        }
-        public void updateBook(Book book)
-        {
-
+            DatabaseTable.Query(sqlDatabase, "DELETE FROM kniha WHERE kniha_id = @id", keyValues, "kniha");
+            identityMap.delete("kniha_id", id);
         }
     }
 }

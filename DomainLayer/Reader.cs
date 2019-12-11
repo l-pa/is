@@ -14,7 +14,7 @@ namespace DomainLayer
 
         public Reader(int id) : base ("","","","")
         {
-            readerGateway.findReader();
+            
         }
 
         public DateTime zalozeniUctu;

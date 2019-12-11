@@ -20,9 +20,11 @@ namespace KnihovnaIS
     /// </summary>
     public partial class Detail : Window
     {
+        Book book;
         public Detail(Book book)
         {
             InitializeComponent();
+            this.book = book;
             name.Content = book.nazev;
             language.Content = book.jazyk;
             genre.Content = book.zanr;
@@ -35,7 +37,32 @@ namespace KnihovnaIS
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            switch (book.deleteBook())
+            {
+                case 0:
+                    MessageBox.Show("Uspech");
+                    this.Close();
+                    break;
+                case 1:
+                    MessageBox.Show("Error, landed");
+                    break;
+                case 2:
+                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Odstranit rezervace?", System.Windows.MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    { 
+                        switch (book.deleteWithReservations())
+                        {
+                            case 0:
+                                MessageBox.Show("Uspech + rezervace");
+                                this.Close();
+                                break;
+                            default:
+                                MessageBox.Show("Chyba");
+                                break;
+                        }
+                    }
+                    break;
+            }
         }
     }
 }
