@@ -31,13 +31,22 @@ namespace DomainLayer
             } else
             {
                 return false;
-            }
-             
+            }    
         }
 
         public void deleteBookReservations()
         {
             reservationGateway.delete(reservatedBook.id);
+        }
+
+        public void makeReservation(DateTime from, DateTime to)
+        {
+            DTO.Reservation reservation = new DTO.Reservation();
+            reservation.ctenar_id = reader.id;
+            reservation.kniha_id = reservatedBook.id;
+            reservation.startOfReservation = from;
+            reservation.endOfReservation = to;
+            reservationGateway.insert(reservation);
         }
 
 

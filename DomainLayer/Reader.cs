@@ -10,8 +10,13 @@ namespace DomainLayer
     public class Reader : Person
     {
         ReaderGateway readerGateway = new ReaderGateway();
-        DTO.Reader reader;
 
+        public int id { get; set; }
+        public string jmeno { get; set; }
+        public string prijmeni { get; set; }
+        public string adresa { get; set; }
+        public string telefon { get; set; }
+        public DateTime datum_zalozeni_uctu { get; set; }
         public Reader(int id) : base ("","","","")
         {
             

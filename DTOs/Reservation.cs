@@ -7,9 +7,8 @@ using System.Text;
         public class Reservation
         {
         public int id;
-            public DateTime startOfReservation;
-            public DateTime endOfReservation;
-            public Book reservatedBook;
+        public DateTime startOfReservation;
+        public DateTime endOfReservation;
         public int ctenar_id;
         public int kniha_id;
     }
