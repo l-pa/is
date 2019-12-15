@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,52 +8,55 @@ using DataLayer.Gateway;
 
 namespace DomainLayer
 {
-    public class Book
+    public class Book : IBook
     {
-        public int id { get; set; }
-        public string nazev { get; set; }
-        public string autor { get; set; }
-        public string jazyk { get; set; }
-        public DateTime? rok_vydani { get; set; }
-        public string ISBN { get; set; }
-        public string zanr { get; set; }
-        public string vydavatel { get; set; }
-        public Condition stav { get; set; }
+        public int Id { get; set; }
+        public string Nazev { get; set; }
+        public string Autor { get; set; }
+        public string Jazyk { get; set; }
+        public DateTime? RokVydani { get; set; }
+        public string Isbn { get; set; }
+        public string Zanr { get; set; }
+        public string Vydavatel { get; set; }
+        public Condition Stav { get; set; }
 
         private int conditionId;
 
-        public Reader reader = new Reader();
+        public IReader Reader { get; set; }
 
-        public Land land;
+        public Land Land { get; set; }
 
-        public Reservation reservation;
+        public IReservation Reservation { get; set; }
 
         BookGateway bookGateway;
+
         public Book()
         {
+            Reader = new Reader();
             bookGateway = new BookGateway();
         }
         public Book(DTO.Book book)
         {
-            id = book.id;
-            nazev = book.nazev;
-            autor = book.autor;
-            jazyk = book.jazyk;
-            rok_vydani = book.rok_vydani;
-            ISBN = book.ISBN;
-            zanr = book.zanr;
-            vydavatel = book.vydavatel;
-            stav = null;
+            Reader = new Reader();
+            Id = book.id;
+            Nazev = book.nazev;
+            Autor = book.autor;
+            Jazyk = book.jazyk;
+            RokVydani = book.rok_vydani;
+            Isbn = book.ISBN;
+            Zanr = book.zanr;
+            Vydavatel = book.vydavatel;
+            Stav = null;
             conditionId = book.stav;
             bookGateway = new BookGateway();
-            reservation = new Reservation(this, reader);
-            land = new Land(this);
+            Reservation = new Reservation(this, Reader);
+            Land = new Land(this);
 
         }
 
-        public List<Book> FindBook(String query)
+        public List<IBook> FindBook(String query)
         {
-            List<Book> domainBooks = new List<Book>();
+            List<IBook> domainBooks = new List<IBook>();
             var books = bookGateway.findBooks(query);
            foreach (var book in books)
             {
@@ -61,16 +65,16 @@ namespace DomainLayer
             return domainBooks;
         }
 
-        public Book FindBook(int id)
+        public IBook FindBook(int id)
         {
             List<Book> domainBooks = new List<Book>();
             var book = bookGateway.findBookById(id);
             return new Book(book);
         }
 
-        public Book FindAlternativeBook()
+        public IBook FindAlternativeBook()
         {
-            var book = bookGateway.FindBookAlternative(nazev, id);
+            var book = bookGateway.FindBookAlternative(Nazev, Id);
             if (book == null)
             {
                 return null;
@@ -81,7 +85,7 @@ namespace DomainLayer
 
         public int DeleteWithReservations()
         {
-            reservation.DeleteBookReservations();
+            Reservation.DeleteBookReservations();
             return DeleteBook();
         }
 
@@ -92,16 +96,16 @@ namespace DomainLayer
 
         public int DeleteBook()
         {
-            if (land.IsLanded())
+            if (Land.IsLanded())
             {
                 return 1;
-            } else if (reservation.IsReserved())
+            } else if (Reservation.IsReserved())
             {
                 return 2;
             }
             else
             {
-                bookGateway.deleteBook(id);
+                bookGateway.deleteBook(Id);
                 return 0;
             }
         }

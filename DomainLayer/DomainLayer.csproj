@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="IBook.cs" />
+    <Compile Include="IReader.cs" />
+    <Compile Include="IReservation.cs" />
     <Compile Include="Land.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

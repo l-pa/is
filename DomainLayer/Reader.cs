@@ -7,7 +7,7 @@ using DataLayer.Gateway;
 
 namespace DomainLayer
 {
-    public class Reader : Person
+    public class Reader : Person, IReader
     {
         PersonGateway _readerGateway = new PersonGateway();
         

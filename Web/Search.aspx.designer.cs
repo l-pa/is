@@ -11,7 +11,7 @@ namespace Web
 {
 
 
-    public partial class Contact
+    public partial class Search
     {
 
         /// <summary>

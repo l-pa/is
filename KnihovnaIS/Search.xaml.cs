@@ -21,7 +21,7 @@ namespace KnihovnaIS
     /// </summary>
     public partial class Search : Page
     {
-        Book books = new Book();
+        IBook books = new Book();
 
         public Search()
         {
@@ -35,7 +35,7 @@ namespace KnihovnaIS
 
         public void updateList()
         {
-            List<Book> booksList = books.FindBook(searchInput.Text);
+            List<IBook> booksList = books.FindBook(searchInput.Text);
             lvBooks.ItemsSource = booksList;
             if (booksList.Count == 0)
             {

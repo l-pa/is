@@ -16,21 +16,21 @@ namespace DomainLayer
         public DateTime DatumVypujcky;
         public DateTime DatumNavratu;
         public bool PotvrzeniONavratu;
-        public Book ReservatedBook;
-        public Reader Reader;
+        public IBook ReservatedBook;
+        public IReader Reader;
         public Condition State;
 
-        public Land(Reader reader)
+        public Land(IReader reader)
         {
             this.Reader = reader;
         }
 
-        public Land(Book book)
+        public Land(IBook book)
         {
             ReservatedBook = book;
         }
 
-        public Land(Book book, DTO.Land land)
+        public Land(IBook book, DTO.Land land)
         {
             Id = land.id;
             DatumVypujcky = land.startLand;
@@ -42,7 +42,7 @@ namespace DomainLayer
         public List<Land> bookLands()
         {
             List<Land> lands = new List<Land>();
-            foreach (DTO.Land l in _landGateway.findByBookId(ReservatedBook.id))
+            foreach (DTO.Land l in _landGateway.findByBookId(ReservatedBook.Id))
             {
                 lands.Add(new Land(ReservatedBook, l));
             }
@@ -64,7 +64,7 @@ namespace DomainLayer
 
         public bool IsLanded()
         {
-            if (_landGateway.IsLanded(ReservatedBook.id).Count > 0) {
+            if (_landGateway.IsLanded(ReservatedBook.Id).Count > 0) {
                 return true;
             }
             return false;

@@ -10,22 +10,22 @@ namespace Web
 {
     public partial class MyBooks : Page
     {
-        private List<Book> myReservedBooks = new List<Book>();
-        private List<Book> myLandedBooks = new List<Book>();
+        private List<IBook> myReservedBooks = new List<IBook>();
+        private List<IBook> myLandedBooks = new List<IBook>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            myReservedBooks = new List<Book>();
+            myReservedBooks = new List<IBook>();
             System.Diagnostics.Debug.WriteLine("Moje knihy loaded");
             foreach (var reservation in new Reservation(new Reader()).GetReaderReservation())
             {
                 myReservedBooks.Add(reservation.ReservatedBook);
-                System.Diagnostics.Debug.WriteLine(reservation.ReservatedBook.nazev);
+                System.Diagnostics.Debug.WriteLine(reservation.ReservatedBook.Nazev);
 
             }
 
-            List<Book> distinctBook = myReservedBooks
-                .GroupBy(p => p.id)
+            List<IBook> distinctBook = myReservedBooks
+                .GroupBy(p => p.Id)
                 .Select(g => g.FirstOrDefault())
                 .ToList();
 

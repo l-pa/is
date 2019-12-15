@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Vyhledavani" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Web.Contact" %>
+﻿<%@ Page Title="Vyhledavani" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Web.Search" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Vyhledavani</h2>
@@ -39,23 +39,23 @@
                 <ItemTemplate>
           <tr runat="server">
               <td>
-              <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("nazev") %>' />
+              <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("Nazev") %>' />
             </td>
                 <td>
-                <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("autor") %>' />
+                <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("Autor") %>' />
               </td>
                 <td>
-                <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("rok_vydani") %>' />
+                <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("RokVydani") %>' />
               </td>
                   <td>
-                  <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("zanr") %>' />
+                  <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("Zanr") %>' />
             </td>
                   <td>
-                  <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("jazyk") %>' />
+                  <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("Jazyk") %>' />
             </td>
 
             <td>
-                 <asp:Button ID="detail" runat="Server" Text="Detail" OnClick="detail_Click" CommandArgument='<%#Eval("id") %>' />
+                 <asp:Button ID="detail" runat="Server" Text="Detail" OnClick="detail_Click" CommandArgument='<%#Eval("Id") %>' />
             </td>
           </tr>
         </ItemTemplate>

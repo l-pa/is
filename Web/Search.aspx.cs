@@ -8,11 +8,10 @@ using DomainLayer;
 
 namespace Web
 {
-    public partial class Contact : Page
+    public partial class Search : Page
     {
-        Book books = new Book();
-        List<Book> booksList;
-        
+        IBook books = new Book();
+        private List<IBook> booksList;
         protected void Page_Load(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Search lodead");

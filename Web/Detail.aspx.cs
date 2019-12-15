@@ -11,13 +11,13 @@ namespace Web
 {
     public partial class Detail : Page
     {
-        private Book book;
-        private List<Reservation> reservations;
+        private IBook book;
+        private List<IReservation> reservations;
         private List<DateTime> dateTimes = new List<DateTime>();
 
         private int alternativeBookId;
 
-        private Book nextReservedBook;
+        private IBook nextReservedBook;
 
         protected void Unnamed_Click(object sender, EventArgs e)
         {
@@ -35,7 +35,7 @@ namespace Web
             errorMessage.Visible = false;
             promptMessage.Visible = false;
 
-            var tmp = book.reservation.ExtendBookReservation(7);
+            var tmp = book.Reservation.ExtendBookReservation(7);
             
             Session["tmp"] = tmp;
 
@@ -45,15 +45,15 @@ namespace Web
             {
                 case 0:
                     successMessage.Visible = true;
-                    successMessageText.Text = "Rezervace " + book.nazev + " uspesne prodlouzena.";
+                    successMessageText.Text = "Rezervace " + book.Nazev + " uspesne prodlouzena.";
                     break;
                 case -1:
                     errorMessage.Visible = true;
-                    errorMessageText.Text = "Rezervace " + book.nazev + " neuspech.";
+                    errorMessageText.Text = "Rezervace " + book.Nazev + " neuspech.";
                     break;
                 default:
                     promptMessage.Visible = true;
-                    promptMessageText.Text = "Je mozno rezervovat nasledujici knihu " + book.nazev + " chcete ji rezervovat?";
+                    promptMessageText.Text = "Je mozno rezervovat nasledujici knihu " + book.Nazev + " chcete ji rezervovat?";
                     extendNextBook.Visible = true;
                     cancelExtendNextBook.Visible = true;
                     alternativeBookId = tmp;
@@ -68,22 +68,22 @@ namespace Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            book = (Book) Session["book"];
+            book = (IBook) Session["book"];
             if (book != null)
             {
-                reservations = new List<Reservation>();
-                reservations = book.reservation.GetBookReservation();
+                reservations = new List<IReservation>();
+                reservations = book.Reservation.GetBookReservation();
 
-                title.InnerText = book.nazev;
+                title.InnerText = book.Nazev;
 
-                autor.InnerText = book.autor;
-                nazev.InnerText = book.nazev;
+                autor.InnerText = book.Autor;
+                nazev.InnerText = book.Nazev;
                 stav.InnerText = book.GetCondition();
-                isbn.InnerText = book.ISBN;
-                zanr.InnerText = book.zanr;
-                jazyk.InnerText = book.jazyk;
+                isbn.InnerText = book.Isbn;
+                zanr.InnerText = book.Zanr;
+                jazyk.InnerText = book.Jazyk;
 
-                if (book.land.IsLanded())
+                if (book.Land.IsLanded())
                 {
                     vypujcena.InnerText = "❌";
                 }
@@ -92,7 +92,7 @@ namespace Web
                     vypujcena.InnerText = "✅";
                 }
 
-                if (book.reservation.IsReserved())
+                if (book.Reservation.IsReserved())
                 {
                     rezervovana.InnerText = "❌";
                 }
@@ -102,7 +102,7 @@ namespace Web
 
                 }
 
-                if (book.reservation.IsReservedByReader())
+                if (book.Reservation.IsReservedByReader())
                 {
                     reservateButton.Text = "Prodlouzit rezervaci";
                     reservateButton.Click -= new EventHandler(reservateButton_Click); // remove Button1_Click
@@ -111,7 +111,7 @@ namespace Web
 
                 try
                 {
-                    posledniRezervace.InnerText = book.reservation.GetBookReservation()[0].DateOfReservation.ToString();
+                    posledniRezervace.InnerText = book.Reservation.GetBookReservation()[0].DateOfReservation.ToString();
                 }
                 catch (Exception exception)
                 {
@@ -149,6 +149,11 @@ namespace Web
 
         protected void calendar_OnDayRender(object sender, DayRenderEventArgs e)
         {
+            if (dateTimes.Count > 2)
+            {
+                dateTimes.Clear();
+            }
+
             if (e.Day.IsSelected == true)
             {
                 dateTimes.Add(e.Day.Date);
@@ -176,11 +181,6 @@ namespace Web
                 }
             }
 
-            if (dateTimes.Count > 2)
-            {
-                dateTimes.Clear();
-            }
-
         }
 
         protected void confirmReservation_OnClick(object sender, EventArgs e)
@@ -190,7 +190,7 @@ namespace Web
 
             if (dateTimes.Count == 2)
             {
-                var res = book.reservation.MakeReservation(dateTimes[0], dateTimes[1]);
+                var res = book.Reservation.MakeReservation(dateTimes[0], dateTimes[1]);
                 Session["newDate"] = res;
 
                 if (res == null)
@@ -217,8 +217,8 @@ namespace Web
 
         protected void extendNextBook_OnClick(object sender, EventArgs e)
         {
-            Book b = book.FindBook((int)Session["tmp"]);
-            switch (b.reservation.ExtendBookReservation(7))
+            IBook b = book.FindBook((int)Session["tmp"]);
+            switch (b.Reservation.ExtendBookReservation(7))
             {
                 case 0:
                     successMessageText.Text = "Prodlouzena rezervace";
@@ -252,7 +252,7 @@ namespace Web
         protected void reservateNewDate_OnClick(object sender, EventArgs e)
         {
             var newDates = (List<DateTime>)Session["newDate"];
-            var res = book.reservation.MakeReservation(newDates[0], newDates[1]);
+            var res = book.Reservation.MakeReservation(newDates[0], newDates[1]);
 
             if (res == null)
             {

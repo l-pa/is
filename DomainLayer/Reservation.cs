@@ -8,30 +8,30 @@ using DataLayer.Gateway;
 
 namespace DomainLayer
 {
-    public class Reservation
+    public class Reservation : IReservation
     {
-        public int Id = 1;
-        public DateTime DateOfReservation;
-        public DateTime StartOfReservation;
-        public DateTime EndOfReservation;
-        public Book ReservatedBook;
-        public Reader Reader;
+        public int Id { get; set; }
+        public DateTime DateOfReservation { get; set; }
+        public DateTime StartOfReservation { get; set; }
+        public DateTime EndOfReservation { get; set; }
+        public IBook ReservatedBook { get; set; }
+    public IReader Reader { get; set; }
 
         private ReservationGateway reservationGateway = new ReservationGateway();
 
-        public Reservation(Reader reader)
+        public Reservation(IReader reader)
         {
             Reader = reader;
         }
-        public Reservation(Book book, Reader reader)
+        public Reservation(IBook book, IReader reader)
         {
             ReservatedBook = book;
             Reader = reader;
         }
 
-        public Reservation(DTO.Reservation res, Book reservatedBook)
+        public Reservation(DTO.Reservation res, IBook reservatedBook)
         {
-            Id = res.id;
+            Id = Reader.Id;
             StartOfReservation = res.startOfReservation;
             EndOfReservation = res.endOfReservation;
             DateOfReservation = res.dateOfReservation;
@@ -39,19 +39,19 @@ namespace DomainLayer
             ReservatedBook = reservatedBook;
         }
 
-        public List<Reservation> GetBookReservation()
+        public List<IReservation> GetBookReservation()
         {
-            List<Reservation> reservations = new List<Reservation>();
-            foreach (DTO.Reservation reservation in reservationGateway.FindByBookId(ReservatedBook.id))
+            List<IReservation> reservations = new List<IReservation>();
+            foreach (DTO.Reservation reservation in reservationGateway.FindByBookId(ReservatedBook.Id))
             {
                 reservations.Add(new Reservation(reservation, ReservatedBook));
             }
             return reservations;
         }
 
-        public List<Reservation> GetReaderReservation()
+        public List<IReservation> GetReaderReservation()
         {
-            List<Reservation> reservations = new List<Reservation>();
+            List<IReservation> reservations = new List<IReservation>();
             Book book = new Book();
             foreach (DTO.Reservation reservation in reservationGateway.FindByReaderId(Reader.Id))
             {
@@ -64,7 +64,7 @@ namespace DomainLayer
 
         public bool IsReserved()
         {
-            if (reservationGateway.ReservedAtMoment(ReservatedBook.id).Count > 0)
+            if (reservationGateway.ReservedAtMoment(ReservatedBook.Id).Count > 0)
             {
                 return true;
             } else
@@ -75,7 +75,7 @@ namespace DomainLayer
 
         public bool IsReservedByReader()
         {
-            if (reservationGateway.FindByBookIdReaderId(ReservatedBook.id, Reader.Id).Count > 0)
+            if (reservationGateway.FindByBookIdReaderId(ReservatedBook.Id, Reader.Id).Count > 0)
             {
                 return true;
             }
@@ -84,30 +84,38 @@ namespace DomainLayer
 
         public void DeleteBookReservations()
         {
-            reservationGateway.Delete(ReservatedBook.id);
+            reservationGateway.Delete(ReservatedBook.Id);
         }
 
         public int ExtendBookReservation(int days)
         {
-            EndOfReservation = reservationGateway.FindByBookIdReaderId(ReservatedBook.id, 1)[0].endOfReservation;
+            try
+            {
+                EndOfReservation = reservationGateway.FindByBookIdReaderId(ReservatedBook.Id, 1)[0].endOfReservation;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                EndOfReservation = DateTime.Today;
+            }
 
             System.Diagnostics.Debug.WriteLine(EndOfReservation.Date);
 
-            if (reservationGateway.ReservationAfter(ReservatedBook.id, EndOfReservation, days).Count > 0)
+            if (reservationGateway.ReservationAfter(ReservatedBook.Id, EndOfReservation, days).Count > 0)
             {
                 var alternativeBook = ReservatedBook.FindAlternativeBook();
                 if (alternativeBook == null)
                 {
                     return -1;
                 }
-                return alternativeBook.id;
+                return alternativeBook.Id;
             }
 
             DTO.Reservation reservation = new DTO.Reservation
             {
                 ctenar_id = Reader.Id,
                 endOfReservation = EndOfReservation.AddDays(days),
-                kniha_id = ReservatedBook.id,
+                kniha_id = ReservatedBook.Id,
                 startOfReservation = EndOfReservation
             };
 
@@ -117,7 +125,7 @@ namespace DomainLayer
 
         public List<DateTime> MakeReservation(DateTime from, DateTime to)
         {
-            List<Reservation> reservations = GetBookReservation();
+            List<IReservation> reservations = GetBookReservation();
 
             List<DateTime> daysBetween = new List<DateTime>();
 
@@ -140,17 +148,17 @@ namespace DomainLayer
 
             DTO.Reservation dtoReservation = new DTO.Reservation();
             dtoReservation.ctenar_id = Reader.Id;
-            dtoReservation.kniha_id = ReservatedBook.id;
+            dtoReservation.kniha_id = ReservatedBook.Id;
             dtoReservation.startOfReservation = from;
             dtoReservation.endOfReservation = to;
             reservationGateway.Insert(dtoReservation);
-            ReservatedBook.reader.Notify("Kniha rezervovana");
+            ReservatedBook.Reader.Notify("Kniha rezervovana");
             return null;
         }
 
         public List<DateTime> FindFreeReservationDate(DateTime startData, DateTime endDate)
         {
-            List<Reservation> reservations = GetBookReservation();
+            List<IReservation> reservations = GetBookReservation();
 
             List<DateTime> dates = new List<DateTime>();
 
@@ -170,7 +178,6 @@ namespace DomainLayer
 
             var missing = range.Except(dates);
             DateTime firstFree = new DateTime();
-            DateTime endFree = new DateTime();
 
             List<DateTime> days = new List<DateTime>();
             foreach (var dateTime in missing)

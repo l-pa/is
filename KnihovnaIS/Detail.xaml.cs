@@ -20,14 +20,14 @@ namespace KnihovnaIS
     /// </summary>
     public partial class Detail : Window
     {
-        Book book;
-        public Detail(Book book)
+        IBook book;
+        public Detail(IBook book)
         {
             InitializeComponent();
             this.book = book;
-            name.Content = book.nazev;
-            language.Content = book.jazyk;
-            genre.Content = book.zanr;
+            name.Content = book.Nazev;
+            language.Content = book.Jazyk;
+            genre.Content = book.Zanr;
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
