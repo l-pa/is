@@ -7,7 +7,7 @@
     <adresa>1</adresa>
     <telefon>000 123 568</telefon>
     <email>1@1.com</email>
-    <datum_vytvoreni_uctu>01-01-2012</datum_vytvoreni_uctu>
+    <datum_vytvoreni_uctu>01.01.2012</datum_vytvoreni_uctu>
   </citatel>
   <citatel id="2">
     <jmeno>2</jmeno>
@@ -16,14 +16,14 @@
     <telefon>000 123 568</telefon>
     <email>2@2.com</email>
 
-    <datum_vytvoreni_uctu>01-01-2012</datum_vytvoreni_uctu>
+    <datum_vytvoreni_uctu>01.01.2012</datum_vytvoreni_uctu>
   </citatel>
   <citatel id="3">
     <jmeno>3</jmeno>
     <prijmeni>3</prijmeni>
     <adresa>3</adresa>
     <telefon>000 123 568</telefon>
-    <datum_vytvoreni_uctu>01-01-2012</datum_vytvoreni_uctu>
+    <datum_vytvoreni_uctu>01.01.2012</datum_vytvoreni_uctu>
     <email>3@3.com</email>
   </citatel>
 </citatele>

@@ -35,7 +35,7 @@ namespace KnihovnaIS
 
         public void updateList()
         {
-            List<Book> booksList = books.findBook(searchInput.Text);
+            List<Book> booksList = books.FindBook(searchInput.Text);
             lvBooks.ItemsSource = booksList;
             if (booksList.Count == 0)
             {

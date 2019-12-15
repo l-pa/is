@@ -15,7 +15,5 @@ namespace DTO
         public int reader_id;
         public int book_id;
         public int state_id;
-
-
     }
 }

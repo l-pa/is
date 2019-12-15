@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class Reader
+    public class Worker
     {
         public int id;
         public string jmeno;
         public string prijmeni;
         public string adresa;
         public string telefon;
-        public DateTime datum_zalozeni_uctu;
-        public string email;
+
+        public int mzda;
+        public string pozice;
     }
 }

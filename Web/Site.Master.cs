@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DomainLayer;
 
 namespace Web
 {
@@ -11,6 +12,8 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["reader"] = new Reader();
+            readerName.InnerText = ((Reader) Session["reader"]).FirstName + " " + ((Reader) Session["reader"]).LastName;
 
         }
     }

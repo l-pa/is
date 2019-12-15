@@ -9,19 +9,13 @@ namespace DomainLayer
 {
     public class Reader : Person
     {
-        ReaderGateway readerGateway = new ReaderGateway();
-
-        public int id { get; set; }
-        public string jmeno { get; set; }
-        public string prijmeni { get; set; }
-        public string adresa { get; set; }
-        public string telefon { get; set; }
-        public DateTime datum_zalozeni_uctu { get; set; }
-        public Reader(int id) : base ("","","","")
+        PersonGateway _readerGateway = new PersonGateway();
+        
+        public DateTime AccountCreatedTime { get; set; }
+        public Reader() : base(1)
         {
-            
+            AccountCreatedTime = _readerGateway.FindReader(1).datum_zalozeni_uctu;
         }
 
-        public DateTime zalozeniUctu;
     }
 }

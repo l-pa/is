@@ -17,12 +17,15 @@ namespace DomainLayer
         public string ISBN { get; set; }
         public string zanr { get; set; }
         public string vydavatel { get; set; }
-        public State stav { get; set; }
+        public Condition stav { get; set; }
 
-        private Reader reader;
-        private Land land;
+        private int conditionId;
 
-        private Reservation reservation;
+        public Reader reader = new Reader();
+
+        public Land land;
+
+        public Reservation reservation;
 
         BookGateway bookGateway;
         public Book()
@@ -40,60 +43,59 @@ namespace DomainLayer
             zanr = book.zanr;
             vydavatel = book.vydavatel;
             stav = null;
-
+            conditionId = book.stav;
             bookGateway = new BookGateway();
             reservation = new Reservation(this, reader);
             land = new Land(this);
 
         }
 
-        public List<Book> findBook(String query)
+        public List<Book> FindBook(String query)
         {
             List<Book> domainBooks = new List<Book>();
-            var books = bookGateway.findBook(query);
+            var books = bookGateway.findBooks(query);
            foreach (var book in books)
             {
                 domainBooks.Add(new Book(book));
             }
             return domainBooks;
         }
-        public void reservateBook(Reader reader, Reservation reservation)
-        {
-            // Datetime from user input
-            //if (bookGateway.checkBookReservation(new DateTime(2000, 2, 15), new DateTime(2002, 12, 24)))
-            //{
-            //    // ReservateMapper
-            //} else
-            //{
-            //    // Show nearest available reservation / error
 
-            //}
+        public Book FindBook(int id)
+        {
+            List<Book> domainBooks = new List<Book>();
+            var book = bookGateway.findBookById(id);
+            return new Book(book);
         }
 
-        public void extendReservation(Reader reader, Reservation reservation)
+        public Book FindAlternativeBook()
         {
-            //if (!bookGateway.checkBookReservation(reservation.endOfReservation, reservation.endOfReservation.AddDays(7)))
-            //{
-                
-            //}
-            //else
-            //{
-            //    // If same book exists and doesnt have reservation show dialog
-            //}
+            var book = bookGateway.FindBookAlternative(nazev, id);
+            if (book == null)
+            {
+                return null;
+            }
+            return new Book(book);
         }
 
-        public int deleteWithReservations()
+
+        public int DeleteWithReservations()
         {
-            reservation.deleteBookReservations();
-            return deleteBook();
+            reservation.DeleteBookReservations();
+            return DeleteBook();
         }
 
-        public int deleteBook()
+        public string GetCondition()
         {
-            if (land.isLanded())
+            return new Condition(conditionId).stav;
+        }
+
+        public int DeleteBook()
+        {
+            if (land.IsLanded())
             {
                 return 1;
-            } else if (reservation.isReservated())
+            } else if (reservation.IsReserved())
             {
                 return 2;
             }

@@ -2,11 +2,21 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Vyhledavani</h2>
-    <input runat="server" id="searchInput" />
-    <asp:button runat="server" Text="Vyhledat" onclick="searchButton_Click"></asp:button>
+    <div class="container">
+        <div class="row">
+
+        <div class="mb-3" style="display: flex">
+    <input runat="server" id="searchInput" class="form-control" placeholder="Nazev knihy, autor" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+    <div class="input-group-append">
+
+    <asp:button runat="server" Text="Vyhledat" onclick="searchButton_Click"  class="btn btn-outline-secondary"></asp:button>
+        </div>
+    </div>
+    </div>        </div>
+
     <asp:ListView ID="listView" runat="server">
         <LayoutTemplate>
-          <table cellpadding="2" width="640px" border="1" runat="server" id="tblProducts">
+          <table cellpadding="2" width="640px" border="1" runat="server" id="tblProducts" class="table table-bordered">
             <tr runat="server">
               <th runat="server">Nazev</th>
               <th runat="server">Autor</th>
@@ -28,7 +38,7 @@
 
                 <ItemTemplate>
           <tr runat="server">
-            <td>
+              <td>
               <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("nazev") %>' />
             </td>
                 <td>
@@ -45,7 +55,7 @@
             </td>
 
             <td>
-                 <asp:Button ID="detail"  runat="Server" Text="Detail" />
+                 <asp:Button ID="detail" runat="Server" Text="Detail" OnClick="detail_Click" CommandArgument='<%#Eval("id") %>' />
             </td>
           </tr>
         </ItemTemplate>

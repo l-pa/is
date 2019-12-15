@@ -26,5 +26,21 @@ namespace DataLayer
                 }
             }
         }
+
+        public DataRow Search(string columnName, T value)
+        {
+            foreach (KeyValuePair<T, DataTable> entry in dictionary)
+            {
+                for (int i = dictionary[entry.Key].Rows.Count - 1; i >= 0; i--)
+                {
+                    DataRow dr = entry.Value.Rows[i];
+                    if (dr[columnName].ToString() == value.ToString())
+                    {
+                        return dr;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

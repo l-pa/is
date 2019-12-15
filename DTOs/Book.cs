@@ -14,6 +14,6 @@ namespace DTO
         public String ISBN { get; set; }
         public String zanr { get; set; }
         public String vydavatel { get; set; }
-        public Condition stav { get; set; }
+        public int stav { get; set; }
     }
 }

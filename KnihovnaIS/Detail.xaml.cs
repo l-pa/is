@@ -37,7 +37,7 @@ namespace KnihovnaIS
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (book.deleteBook())
+            switch (book.DeleteBook())
             {
                 case 0:
                     MessageBox.Show("Uspech");
@@ -50,7 +50,7 @@ namespace KnihovnaIS
                     MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Odstranit rezervace?", System.Windows.MessageBoxButton.YesNo);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     { 
-                        switch (book.deleteWithReservations())
+                        switch (book.DeleteWithReservations())
                         {
                             case 0:
                                 MessageBox.Show("Uspech + rezervace");

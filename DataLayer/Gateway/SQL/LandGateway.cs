@@ -11,11 +11,11 @@ namespace DataLayer.Gateway
     {
         SQLConnection sqlDatabase = new SQLConnection();
 
-        public List<DTO.Land> findById(Book book)
+        public List<DTO.Land> findByBookId(int bookId)
         {
             List<DTO.Land> lands = new List<Land>();
             Dictionary<string, string> keyValues = new Dictionary<string, string>();
-            keyValues.Add("@id", book.id.ToString());
+            keyValues.Add("@id", bookId.ToString());
             var result = DatabaseTable.Query(sqlDatabase, "SELECT * FROM vypujcka WHERE kniha_id = @id", keyValues, "vypujcka"); // TODO
             for (int i = 0; i < result.Rows.Count; i++)
             {
@@ -32,7 +32,28 @@ namespace DataLayer.Gateway
             return lands;
         }
 
-        public List<DTO.Land> isLanded(int id)
+        public List<DTO.Land> findByReaderId(int bookId)
+        {
+            List<DTO.Land> lands = new List<Land>();
+            Dictionary<string, string> keyValues = new Dictionary<string, string>();
+            keyValues.Add("@id", bookId.ToString());
+            var result = DatabaseTable.Query(sqlDatabase, "SELECT * FROM vypujcka WHERE ctenar_id = @id", keyValues, "vypujcka"); // TODO
+            for (int i = 0; i < result.Rows.Count; i++)
+            {
+                DTO.Land land = new Land();
+                land.id = (int)result.Rows[i].ItemArray[0];
+                land.startLand = (DateTime)result.Rows[i].ItemArray[1];
+                land.endLand = (DateTime)result.Rows[i].ItemArray[2];
+                land.returned = (bool)result.Rows[i].ItemArray[3];
+                land.reader_id = (int)result.Rows[i].ItemArray[4];
+                land.book_id = (int)result.Rows[i].ItemArray[5];
+                land.state_id = (int)result.Rows[i].ItemArray[6];
+                lands.Add(land);
+            }
+            return lands;
+        }
+
+        public List<DTO.Land> IsLanded(int id)
         {
             List<DTO.Land> lands = new List<Land>();
             Dictionary<string, string> keyValues = new Dictionary<string, string>();

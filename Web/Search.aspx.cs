@@ -11,29 +11,22 @@ namespace Web
     public partial class Contact : Page
     {
         Book books = new Book();
+        List<Book> booksList;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            System.Diagnostics.Debug.WriteLine("Search lodead");
         }
 
         public void updateList()
         {
-            List<Book> booksList = books.findBook(searchInput.Value);
+            booksList = books.FindBook(searchInput.Value);
             listView.DataSource = booksList;
             listView.DataBind();
             if (booksList.Count == 0)
             {
-                
+                // Alert
             }
-        }
-
-        private void clickDetail_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-            //Detail detail = new Detail((Book)btn.Tag);
-            //detail.Show();
-
-            //detail.Closed += detailClosed;
         }
 
         private void detailClosed(object sender, EventArgs e)
@@ -44,6 +37,15 @@ namespace Web
         protected void searchButton_Click(object sender, EventArgs e)
         {
             updateList();
+        }
+
+        protected void detail_Click(object sender, EventArgs e)
+        {
+            //Get the listviewitem from button        
+            ListViewItem item = (ListViewItem)(sender as Control).NamingContainer;
+            updateList();
+            Session["book"] = booksList[Convert.ToInt32(item.DataItemIndex)];
+            Response.Redirect("~/Detail.aspx");
         }
     }
 }

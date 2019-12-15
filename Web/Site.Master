@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Web.SiteMaster" %>
+<%@ Import Namespace="DomainLayer" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +7,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -17,7 +18,7 @@
 
 </head>
 <body>
-    <form runat="server">
+    <form runat="server" style="display: flex">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -38,9 +39,10 @@
             </Scripts>
         </asp:ScriptManager>
 
- <nav id="sidebar">
+ <nav id="sidebar" class="ml-4">
         <div class="sidebar-header">
             <h3>Prihlaseny uzivatel</h3>
+            <h4 runat="server" id="readerName"></h4>
         </div>
         <ul class="list-unstyled components">
             <p>Dummy Heading</p>
@@ -63,7 +65,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Knihovna 2019</p>
             </footer>
         </div>
 

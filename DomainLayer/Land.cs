@@ -4,31 +4,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Gateway;
+using Microsoft.Win32.SafeHandles;
 
 namespace DomainLayer
 {
     public class Land
     {
-        LandGateway landGateway = new LandGateway();
+        readonly LandGateway _landGateway = new LandGateway();
+        
+        public int Id;
+        public DateTime DatumVypujcky;
+        public DateTime DatumNavratu;
+        public bool PotvrzeniONavratu;
+        public Book ReservatedBook;
+        public Reader Reader;
+        public Condition State;
 
-        public DateTime datumVypujcky;
-        public DateTime datumNavratu;
-        public bool potvrzeniONavratu;
-        public Book reservatedBook;
+        public Land(Reader reader)
+        {
+            this.Reader = reader;
+        }
 
         public Land(Book book)
         {
-            reservatedBook = book;
+            ReservatedBook = book;
         }
 
-        public bool isLanded()
+        public Land(Book book, DTO.Land land)
         {
-            if (landGateway.isLanded(reservatedBook.id).Count > 0) {
-                return true;
-            } else
+            Id = land.id;
+            DatumVypujcky = land.startLand;
+            DatumNavratu = land.endLand;
+            PotvrzeniONavratu = land.returned;
+            ReservatedBook = book;
+        }
+
+        public List<Land> bookLands()
+        {
+            List<Land> lands = new List<Land>();
+            foreach (DTO.Land l in _landGateway.findByBookId(ReservatedBook.id))
             {
-                return false;
+                lands.Add(new Land(ReservatedBook, l));
             }
+            return lands;
+        }
+
+        public List<Land> ReaderLands()
+        {
+            List<Land> lands = new List<Land>();
+            Book book = new Book();
+            foreach (DTO.Land l in _landGateway.findByReaderId(Reader.Id))
+            {
+                lands.Add(new Land(book.FindBook(l.book_id), l));
+            }
+            return lands;
+        }
+
+
+
+        public bool IsLanded()
+        {
+            if (_landGateway.IsLanded(ReservatedBook.id).Count > 0) {
+                return true;
+            }
+            return false;
         }
 
     }
