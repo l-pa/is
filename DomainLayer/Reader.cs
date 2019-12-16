@@ -9,12 +9,10 @@ namespace DomainLayer
 {
     public class Reader : Person, IReader
     {
-        PersonGateway _readerGateway = new PersonGateway();
-        
         public DateTime AccountCreatedTime { get; set; }
-        public Reader() : base(1)
+        public Reader(int id) : base(id)
         {
-            AccountCreatedTime = _readerGateway.FindReader(1).datum_zalozeni_uctu;
+
         }
 
     }

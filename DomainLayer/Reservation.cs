@@ -29,13 +29,19 @@ namespace DomainLayer
             Reader = reader;
         }
 
+        public Reservation(IBook book)
+        {
+            ReservatedBook = book;
+            Reader = new Reader(1);
+        }
+
         public Reservation(DTO.Reservation res, IBook reservatedBook)
         {
-            Id = Reader.Id;
+            Id = 1;
             StartOfReservation = res.startOfReservation;
             EndOfReservation = res.endOfReservation;
             DateOfReservation = res.dateOfReservation;
-            Reader = new Reader();
+            Reader = new Reader(res.ctenar_id);
             ReservatedBook = reservatedBook;
         }
 
@@ -84,6 +90,16 @@ namespace DomainLayer
 
         public void DeleteBookReservations()
         {
+            List<Reservation> reservations = new List<Reservation>();
+            foreach(var res in reservationGateway.FindByBookId(ReservatedBook.Id))
+            {
+                reservations.Add(new Reservation(res, ReservatedBook));
+            }
+
+            foreach(var reader in reservations)
+            {
+                reader.Reader.Notify("Rezervace knihy " + reader.ReservatedBook.Id + " byla zrusena");
+            }
             reservationGateway.Delete(ReservatedBook.Id);
         }
 
@@ -91,7 +107,8 @@ namespace DomainLayer
         {
             try
             {
-                EndOfReservation = reservationGateway.FindByBookIdReaderId(ReservatedBook.Id, 1)[0].endOfReservation;
+                var res = reservationGateway.FindByBookIdReaderId(ReservatedBook.Id, 1);
+                EndOfReservation = res[res.Count - 1].endOfReservation;
             }
             catch (Exception e)
             {
@@ -152,7 +169,7 @@ namespace DomainLayer
             dtoReservation.startOfReservation = from;
             dtoReservation.endOfReservation = to;
             reservationGateway.Insert(dtoReservation);
-            ReservatedBook.Reader.Notify("Kniha rezervovana");
+            Reader.Notify("Kniha " + ReservatedBook.Nazev + " byla rezervovana od " + from.Date + " do " + to.Date);
             return null;
         }
 
@@ -184,9 +201,16 @@ namespace DomainLayer
             {
                 days.Add(dateTime);
             }
-            
-            firstFree = days[0];
 
+            try
+            {
+                firstFree = days[0];
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
             for (int i = 1; i < days.Count; i++)
             {
                 if (firstFree.AddDays(i) == days[i])

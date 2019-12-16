@@ -17,9 +17,7 @@
             </table>
             <asp:DataPager runat="server" ID="ContactsDataPager" PageSize="12">
                 <Fields>
-                    <asp:NextPreviousPagerField ShowFirstPageButton="true" ShowLastPageButton="true"
-                                                FirstPageText="|&lt;&lt; " LastPageText=" &gt;&gt;|"
-                                                NextPageText=" &gt; " PreviousPageText=" &lt; " />
+
                 </Fields>
             </asp:DataPager>
         </LayoutTemplate>
@@ -27,26 +25,29 @@
         <ItemTemplate>
             <tr runat="server">
                 <td>
-                    <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("nazev") %>' />
+                    <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("Nazev") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("autor") %>' />
+                    <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("Autor") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("rok_vydani") %>' />
+                    <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("Rokvydani") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("zanr") %>' />
+                    <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("Zanr") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("jazyk") %>' />
+                    <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("Jazyk") %>' />
                 </td>
 
                 <td>
-                    <asp:Button ID="detail" runat="Server" Text="Detail" OnClick="detail_OnClick" CommandArgument='<%#Eval("id") %>' />
+                    <asp:Button ID="detail" runat="Server" Text="Detail" OnClick="detail_OnClick" CommandArgument='<%#Eval("Id") %>' />
                 </td>
             </tr>
         </ItemTemplate>
 
     </asp:ListView>
+    <asp:Button runat="server" Text="Next page" ID="nextPage" OnClick="nextPage_Click"/>
+    <asp:Button runat="server" Text="Prev page" ID="prevPage" OnClick="prevPage_Click"/>
+
 </asp:Content>

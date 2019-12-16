@@ -85,21 +85,20 @@ namespace Web
 
                 if (book.Land.IsLanded())
                 {
-                    vypujcena.InnerText = "❌";
+                    vypujcena.InnerText = "✅";
                 }
                 else
                 {
-                    vypujcena.InnerText = "✅";
+                    vypujcena.InnerText = "❌";
                 }
 
                 if (book.Reservation.IsReserved())
                 {
-                    rezervovana.InnerText = "❌";
+                    rezervovana.InnerText = "✅";
                 }
                 else
                 {
-                    rezervovana.InnerText = "✅";
-
+                    rezervovana.InnerText = "❌";
                 }
 
                 if (book.Reservation.IsReservedByReader())
@@ -185,6 +184,12 @@ namespace Web
 
         protected void confirmReservation_OnClick(object sender, EventArgs e)
         {
+            successMessage.Visible = false;
+            errorMessage.Visible = false;
+            promptMessage.Visible = false;
+            newDateDiv.Visible = false;
+
+
             dateTimes = (List<DateTime>) Session["SelectedDates"];
             System.Diagnostics.Debug.WriteLine(dateTimes.Count.ToString());
 
@@ -195,6 +200,9 @@ namespace Web
 
                 if (res == null)
                 {
+                    successMessage.Visible = true;
+                    successMessageText.Text = "Kniha " + book.Nazev + " byla rezervovana od " + dateTimes[0].Date + " do " + dateTimes[1].Date;
+
                     System.Diagnostics.Debug.WriteLine("Reservation successful");
                 }
                 else
@@ -221,7 +229,7 @@ namespace Web
             switch (b.Reservation.ExtendBookReservation(7))
             {
                 case 0:
-                    successMessageText.Text = "Prodlouzena rezervace";
+                    successMessageText.Text = "Rezervace knihy " + book.Nazev + " byla prodlouzena";
                     successMessage.Visible = true;
                     extendNextBook.Visible = false;
                     promptMessage.Visible = false;
@@ -240,17 +248,26 @@ namespace Web
 
         protected void cancelExtendNextBook_OnClick(object sender, EventArgs e)
         {
+            successMessage.Visible = false;
+            errorMessage.Visible = false;
+            promptMessage.Visible = false;
+
+
             promptMessage.Visible = false;
             extendNextBook.Visible = false;
             cancelExtendNextBook.Visible = false;
 
             errorMessageText.Visible = true;
-            errorMessageText.Text = "Nelze rezervovat";
+            errorMessageText.Text = "Rezervace zrusena";
             errorMessage.Visible = true;
         }
 
         protected void reservateNewDate_OnClick(object sender, EventArgs e)
         {
+            successMessage.Visible = false;
+            errorMessage.Visible = false;
+            promptMessage.Visible = false;
+
             var newDates = (List<DateTime>)Session["newDate"];
             var res = book.Reservation.MakeReservation(newDates[0], newDates[1]);
 
@@ -258,13 +275,13 @@ namespace Web
             {
                 System.Diagnostics.Debug.WriteLine("Reservation successful");
                 successMessage.Visible = true;
-                successMessageText.Text = "Kniha rezervovana";
+                successMessageText.Text = "Kniha " + book.Nazev + " byla rezervovana od " + newDates[0].Date + " do " + newDates[1].Date;
             }
             else
             {
                 System.Diagnostics.Debug.WriteLine("Reservation error");
                 errorMessageText.Visible = true;
-                errorMessageText.Text = "Nelze rezervovat";
+                errorMessageText.Text = "Rezervace zrusena";
                 errorMessage.Visible = true;
             }
         }

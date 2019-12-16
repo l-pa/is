@@ -3,6 +3,10 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Vyhledavani</h2>
     <div class="container">
+            <div runat="server" Visible="False" id="errorMessage" class="alert alert-danger" role="alert">
+        <asp:Literal ID="errorMessageText" runat="server" Text='' />
+
+    </div>
         <div class="row">
 
         <div class="mb-3" style="display: flex">
@@ -27,12 +31,7 @@
             </tr>
             <tr runat="server" id="itemPlaceholder" />
           </table>
-          <asp:DataPager runat="server" ID="ContactsDataPager" PageSize="12">
-            <Fields>
-              <asp:NextPreviousPagerField ShowFirstPageButton="true" ShowLastPageButton="true"
-                FirstPageText="|&lt;&lt; " LastPageText=" &gt;&gt;|"
-                NextPageText=" &gt; " PreviousPageText=" &lt; " />
-            </Fields>
+          <asp:DataPager runat="server" ID="ContactsDataPager" PageSize="10">
           </asp:DataPager>
         </LayoutTemplate>
 
@@ -60,5 +59,8 @@
           </tr>
         </ItemTemplate>
     </asp:ListView>
+    <asp:Button Text="Next page" runat="server" ID="nextPage" OnClick="nextPage_Click"/>
+    <asp:Button Text="Prev page" runat="server" ID="prevPage" OnClick="prevPage_Click"/>
+
     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
 </asp:Content>

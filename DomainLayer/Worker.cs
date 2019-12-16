@@ -10,12 +10,9 @@ namespace DomainLayer
 {
     public class Worker : Person
     {
-        readonly PersonGateway _workerGateway = new PersonGateway();
-        public Worker() : base(1)
+        public Worker(int id) : base(id)
         {
-            var worker = _workerGateway.FindWorker(1);
-            Salary = worker.mzda;
-            Position = worker.pozice;
+            base.FindWorker();
         }
         public int Salary { get; set; }
         public string Position { get; set; }

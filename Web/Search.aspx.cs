@@ -11,20 +11,35 @@ namespace Web
     public partial class Search : Page
     {
         IBook books = new Book();
+        private List<IBook> pageList = new List<IBook>();
         private List<IBook> booksList;
+        private int index = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            booksList = books.FindBook(searchInput.Value);
             System.Diagnostics.Debug.WriteLine("Search lodead");
         }
 
         public void updateList()
         {
-            booksList = books.FindBook(searchInput.Value);
-            listView.DataSource = booksList;
-            listView.DataBind();
+            errorMessage.Visible = false;
             if (booksList.Count == 0)
             {
-                // Alert
+                errorMessage.Visible = true;
+                errorMessageText.Text = "Nenalezeny zadne knihy";
+            } else
+            {
+                try
+                {
+                    pageList = booksList.GetRange(index * 10, (index + 1) * 10);
+                }
+                catch (Exception)
+                {
+                    pageList = booksList.GetRange((booksList.Count / 10) * 10, booksList.Count % 10);
+                }
+                listView.DataSource = pageList;
+                listView.DataBind();
             }
         }
 
@@ -45,6 +60,24 @@ namespace Web
             updateList();
             Session["book"] = booksList[Convert.ToInt32(item.DataItemIndex)];
             Response.Redirect("~/Detail.aspx");
+        }
+
+        protected void nextPage_Click(object sender, EventArgs e)
+        {
+            if (index < Math.Ceiling(booksList.Count / 10d))
+            {
+                index += 1;
+                updateList();
+            }
+        }
+
+        protected void prevPage_Click(object sender, EventArgs e)
+        {
+            if (index > 1)
+            {
+                index -= 1;
+                updateList();
+            }
         }
     }
 }

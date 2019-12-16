@@ -89,7 +89,7 @@
     <asp:Button ID="reservateButton" runat="server" OnClick="reservateButton_Click" Text="Rezervace"></asp:Button>
     <asp:Button ID="canceButton" runat="server" Text="Zrusit" OnClick="canceButton_Click"></asp:Button>
 
-    <div id="showCalendar" runat="server" visible="True">
+    <div id="showCalendar" runat="server" visible="False">
         <asp:Calendar runat="server" ID="calendar" OnLoad="calendar_OnLoad" OnSelectionChanged="calendar_SelectionChanged" OnDayRender="calendar_OnDayRender" SelectionMode="DayWeekMonth">
             <SelectedDayStyle  
                 BackColor="Crimson"  

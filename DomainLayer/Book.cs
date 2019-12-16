@@ -22,7 +22,6 @@ namespace DomainLayer
 
         private int conditionId;
 
-        public IReader Reader { get; set; }
 
         public Land Land { get; set; }
 
@@ -32,12 +31,10 @@ namespace DomainLayer
 
         public Book()
         {
-            Reader = new Reader();
             bookGateway = new BookGateway();
         }
         public Book(DTO.Book book)
         {
-            Reader = new Reader();
             Id = book.id;
             Nazev = book.nazev;
             Autor = book.autor;
@@ -49,7 +46,7 @@ namespace DomainLayer
             Stav = null;
             conditionId = book.stav;
             bookGateway = new BookGateway();
-            Reservation = new Reservation(this, Reader);
+            Reservation = new Reservation(this);
             Land = new Land(this);
 
         }

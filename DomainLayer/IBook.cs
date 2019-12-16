@@ -30,8 +30,6 @@ namespace DomainLayer
          string Vydavatel { get; set; }
          Condition Stav { get; set; }
 
-         IReader Reader { get; set; }
-
          Land Land { get; set; }
 
          IReservation Reservation { get; set; }

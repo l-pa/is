@@ -12,9 +12,8 @@ namespace Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["reader"] = new Reader();
+            Session["reader"] = new Reader(1);
             readerName.InnerText = ((Reader) Session["reader"]).FirstName + " " + ((Reader) Session["reader"]).LastName;
-
         }
     }
 }

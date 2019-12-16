@@ -34,5 +34,21 @@ namespace DomainLayer
             System.Diagnostics.Debug.WriteLine(Email);
             System.Diagnostics.Debug.WriteLine(text);
         }
+
+        public Reader FindReader()
+        {
+            Reader reader = new Reader(Id);
+            var r = PersonGateway.FindReader(Id);
+            reader.AccountCreatedTime = r.datum_zalozeni_uctu;
+            return reader;
+        }
+        public Worker FindWorker()
+        {
+            Worker worker = new Worker(Id);
+            var r = PersonGateway.FindWorker(Id);
+            worker.Position = r.pozice;
+            worker.Salary = r.mzda;
+            return worker;
+        }
     }
 }
