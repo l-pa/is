@@ -258,12 +258,11 @@ namespace Web
 
         protected void cancelExtendNextBook_OnClick(object sender, EventArgs e)
         {
+            newDateDiv.Visible = false;
             successMessage.Visible = false;
             errorMessage.Visible = false;
             promptMessage.Visible = false;
 
-
-            promptMessage.Visible = false;
             extendNextBook.Visible = false;
             cancelExtendNextBook.Visible = false;
 
