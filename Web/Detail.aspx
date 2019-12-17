@@ -12,10 +12,10 @@
 
     </div>
     
-    <div runat="server" id="promptMessage" Visible="False" class="alert alert-secondary" role="alert">
+    <div runat="server" id="promptMessage" Visible="False" class="alert alert-warning" role="alert">
         <asp:Literal ID="promptMessageText" runat="server" Text='' />
-        <asp:Button runat="server" Text="Rezervovat" Visible="False" ID="extendNextBook" OnClick="extendNextBook_OnClick"/>
-        <asp:Button runat="server" Text="Zrusit" Visible="False" ID="cancelExtendNextBook" OnClick="cancelExtendNextBook_OnClick"/>
+        <asp:Button runat="server" CssClass="btn btn-primary" Text="Rezervovat" Visible="False" ID="extendNextBook" OnClick="extendNextBook_OnClick"/>
+        <asp:Button runat="server" CssClass="btn btn-secondary" Text="Zrusit" Visible="False" ID="cancelExtendNextBook" OnClick="cancelExtendNextBook_OnClick"/>
 
     </div>
     <div style="display: flex">
@@ -86,9 +86,7 @@
         </tbody>
     </table>
     </div>
-    <asp:Button ID="reservateButton" runat="server" OnClick="reservateButton_Click" Text="Rezervace"></asp:Button>
-    <asp:Button ID="canceButton" runat="server" Text="Zrusit" OnClick="canceButton_Click"></asp:Button>
-
+    <div>
     <div id="showCalendar" runat="server" visible="False">
         <asp:Calendar runat="server" ID="calendar" OnLoad="calendar_OnLoad" OnSelectionChanged="calendar_SelectionChanged" OnDayRender="calendar_OnDayRender" SelectionMode="DayWeekMonth">
             <SelectedDayStyle  
@@ -97,13 +95,17 @@
             />
         </asp:Calendar>
         
-        <asp:Button runat="server" Text="Potvrdit rezervaci" ID="confirmReservation" OnClick="confirmReservation_OnClick"/>
+        <asp:Button runat="server" CssClass="btn btn-secondary" Text="Potvrdit rezervaci" ID="confirmReservation" OnClick="confirmReservation_OnClick"/>
         
         <div runat="server" id="newDateDiv" Visible="False" class="alert alert-secondary" role="alert">
             <asp:Literal ID="newDate" runat="server" Text='' />
-            <asp:Button runat="server" Text="Rezervovat" Visible="False" ID="reservateNewDate" OnClick="reservateNewDate_OnClick"/>
-            <asp:Button runat="server" Text="Zrusit" Visible="False" ID="cancelReservation" OnClick="cancelExtendNextBook_OnClick"/>
+            <asp:Button CssClass="btn btn-warning" runat="server" Text="Rezervovat" Visible="False" ID="reservateNewDate" OnClick="reservateNewDate_OnClick"/>
+            <asp:Button CssClass="btn btn-secondary" runat="server" Text="Zrusit" Visible="False" ID="cancelReservation" OnClick="cancelExtendNextBook_OnClick"/>
 
         </div>
     </div>
+
+        <asp:Button ID="reservateButton" CssClass="btn btn-secondary" runat="server" OnClick="reservateButton_Click" Text="Rezervace"></asp:Button>
+    <asp:Button ID="canceButton" CssClass="btn btn-primary" runat="server" Text="Zrusit" OnClick="canceButton_Click"></asp:Button>
+</div>
 </asp:Content>

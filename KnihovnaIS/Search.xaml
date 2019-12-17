@@ -43,11 +43,11 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Nazev" Width="120" DisplayMemberBinding="{Binding nazev}" />
-                        <GridViewColumn Header="Autor" Width="100" DisplayMemberBinding="{Binding autor}" />
-                        <GridViewColumn Header="Rok vydani" Width="85" DisplayMemberBinding="{Binding rok_vydani}" />
-                        <GridViewColumn Header="Zanr" Width="85" DisplayMemberBinding="{Binding zanr}" />
-                        <GridViewColumn Header="Jazyk" Width="85" DisplayMemberBinding="{Binding jazyk}" />
+                        <GridViewColumn Header="Nazev" Width="120" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Autor" Width="100" DisplayMemberBinding="{Binding Author}" />
+                        <GridViewColumn Header="Rok vydani" Width="85" DisplayMemberBinding="{Binding PublishYear}" />
+                        <GridViewColumn Header="Zanr" Width="85" DisplayMemberBinding="{Binding Genre}" />
+                        <GridViewColumn Header="Jazyk" Width="85" DisplayMemberBinding="{Binding Language}" />
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

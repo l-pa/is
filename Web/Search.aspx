@@ -38,19 +38,19 @@
                 <ItemTemplate>
           <tr runat="server">
               <td>
-              <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("Nazev") %>' />
+              <asp:Label ID="nameLabel" runat="Server" Text='<%#Eval("Name") %>' />
             </td>
                 <td>
-                <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("Autor") %>' />
+                <asp:Label ID="authorLabel" runat="Server" Text='<%#Eval("Author") %>' />
               </td>
                 <td>
-                <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("RokVydani") %>' />
+                <asp:Label ID="publishYearLabel" runat="Server" Text='<%#Eval("PublishYear") %>' />
               </td>
                   <td>
-                  <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("Zanr") %>' />
+                  <asp:Label ID="genreLabel" runat="Server" Text='<%#Eval("Genre") %>' />
             </td>
                   <td>
-                  <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("Jazyk") %>' />
+                  <asp:Label ID="languageLabel" runat="Server" Text='<%#Eval("Language") %>' />
             </td>
 
             <td>

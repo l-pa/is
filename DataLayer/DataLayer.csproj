@@ -57,6 +57,7 @@
     <Compile Include="Gateway\XML\PersonGateway.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TextFile1.txt" />
     <Content Include="uzivatele.xml" />
   </ItemGroup>
   <ItemGroup>

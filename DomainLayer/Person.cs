@@ -31,8 +31,8 @@ namespace DomainLayer
 
         public void Notify(string text)
         {
-            System.Diagnostics.Debug.WriteLine(Email);
-            System.Diagnostics.Debug.WriteLine(text);
+            System.Diagnostics.Debug.WriteLine("To: " + Email);
+            System.Diagnostics.Debug.WriteLine("Text: " + text);
         }
 
         public Reader FindReader()

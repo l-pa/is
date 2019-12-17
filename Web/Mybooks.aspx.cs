@@ -32,12 +32,13 @@ namespace Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            errorMessage.Visible = false;
             myReservedBooks = new List<IBook>();
             System.Diagnostics.Debug.WriteLine("Moje knihy loaded");
             foreach (var reservation in new Reservation(new Reader(1)).GetReaderReservation())
             {
                 myReservedBooks.Add(reservation.ReservatedBook);
-                System.Diagnostics.Debug.WriteLine(reservation.ReservatedBook.Nazev);
+                System.Diagnostics.Debug.WriteLine(reservation.ReservatedBook.Name);
 
             }
 
@@ -53,6 +54,14 @@ namespace Web
             //{
             //    myLandedBooks.Add(land.reservatedBook);
             //}
+
+            if(pageBooks.Count == 0)
+            {
+                prevPage.Visible = false;
+                nextPage.Visible = false;
+                errorMessage.Visible = true;
+                errorMessageText.Text = "Nenalezeny knihy";
+            }
 
         }
 

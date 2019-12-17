@@ -25,9 +25,32 @@ namespace KnihovnaIS
         {
             InitializeComponent();
             this.book = book;
-            name.Content = book.Nazev;
-            language.Content = book.Jazyk;
-            genre.Content = book.Zanr;
+            name.Content = book.Name;
+            language.Content = book.Language;
+            genre.Content = book.Genre;
+            publishYear.Content = book.PublishYear.Value.Year;
+            state.Content = book.GetCondition();
+
+            if (book.Lend.IsLanded())
+            {
+                landed.Content = "✔";
+            }
+            else
+            {
+                landed.Content = "❌";
+            }
+            var a = book.Reservation.GetBookReservation();
+            if (a.Count > 0)
+            {
+                lastReservation.Content = a[a.Count - 1].DateOfReservation.ToString();
+            } else
+            {
+                lastReservation.Content = "❌";
+            }
+            author.Content = book.Author;
+            publishYear.Content = book.PublishYear;
+            isbn.Content = book.Isbn;
+
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -47,13 +70,13 @@ namespace KnihovnaIS
                     MessageBox.Show("Error, landed");
                     break;
                 case 2:
-                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Odstranit rezervace?", System.Windows.MessageBoxButton.YesNo);
+                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Chcete odstranit rezervace", "Odstranit rezervace?", System.Windows.MessageBoxButton.YesNo);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     { 
                         switch (book.DeleteWithReservations())
                         {
                             case 0:
-                                MessageBox.Show("Uspech + rezervace");
+                                MessageBox.Show("Kniha a rezervace odstraneny");
                                 this.Close();
                                 break;
                             default:

@@ -40,11 +40,15 @@
             <Label Name="state" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
             <Label Name="landed" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
 
-            <Label Name="author" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Autor</Label>
-            <Label Name="publishYear" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Rok vydani</Label>
-            <Label Name="isbn" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">ISBN</Label>
-            <Label Name="lastReservation" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Posledni rezervace</Label>
+            <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Autor</Label>
+            <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Rok vydani</Label>
+            <Label Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">ISBN</Label>
+            <Label Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0">Posledni rezervace</Label>
 
+            <Label Name="author" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="publishYear" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="isbn" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+            <Label Name="lastReservation" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

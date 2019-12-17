@@ -8,7 +8,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace DomainLayer
 {
-    public class Land
+    public class Lend
     {
         readonly LandGateway _landGateway = new LandGateway();
         
@@ -20,17 +20,17 @@ namespace DomainLayer
         public IReader Reader;
         public Condition State;
 
-        public Land(IReader reader)
+        public Lend(IReader reader)
         {
             this.Reader = reader;
         }
 
-        public Land(IBook book)
+        public Lend(IBook book)
         {
             ReservatedBook = book;
         }
 
-        public Land(IBook book, DTO.Land land)
+        public Lend(IBook book, DTO.Land land)
         {
             Id = land.id;
             DatumVypujcky = land.startLand;
@@ -39,23 +39,23 @@ namespace DomainLayer
             ReservatedBook = book;
         }
 
-        public List<Land> bookLands()
+        public List<Lend> bookLands()
         {
-            List<Land> lands = new List<Land>();
+            List<Lend> lands = new List<Lend>();
             foreach (DTO.Land l in _landGateway.findByBookId(ReservatedBook.Id))
             {
-                lands.Add(new Land(ReservatedBook, l));
+                lands.Add(new Lend(ReservatedBook, l));
             }
             return lands;
         }
 
-        public List<Land> ReaderLands()
+        public List<Lend> ReaderLands()
         {
-            List<Land> lands = new List<Land>();
+            List<Lend> lands = new List<Lend>();
             Book book = new Book();
             foreach (DTO.Land l in _landGateway.findByReaderId(Reader.Id))
             {
-                lands.Add(new Land(book.FindBook(l.book_id), l));
+                lands.Add(new Lend(book.FindBook(l.book_id), l));
             }
             return lands;
         }

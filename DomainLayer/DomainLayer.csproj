@@ -48,7 +48,7 @@
     <Compile Include="IBook.cs" />
     <Compile Include="IReader.cs" />
     <Compile Include="IReservation.cs" />
-    <Compile Include="Land.cs" />
+    <Compile Include="Lend.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader.cs" />

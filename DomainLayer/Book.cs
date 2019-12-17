@@ -11,19 +11,19 @@ namespace DomainLayer
     public class Book : IBook
     {
         public int Id { get; set; }
-        public string Nazev { get; set; }
-        public string Autor { get; set; }
-        public string Jazyk { get; set; }
-        public DateTime? RokVydani { get; set; }
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Language { get; set; }
+        public DateTime? PublishYear { get; set; }
         public string Isbn { get; set; }
-        public string Zanr { get; set; }
-        public string Vydavatel { get; set; }
-        public Condition Stav { get; set; }
+        public string Genre { get; set; }
+        public string Publisher { get; set; }
+        public Condition Condition { get; set; }
 
         private int conditionId;
 
 
-        public Land Land { get; set; }
+        public Lend Lend { get; set; }
 
         public IReservation Reservation { get; set; }
 
@@ -36,18 +36,18 @@ namespace DomainLayer
         public Book(DTO.Book book)
         {
             Id = book.id;
-            Nazev = book.nazev;
-            Autor = book.autor;
-            Jazyk = book.jazyk;
-            RokVydani = book.rok_vydani;
+            Name = book.nazev;
+            Author = book.autor;
+            Language = book.jazyk;
+            PublishYear = book.rok_vydani;
             Isbn = book.ISBN;
-            Zanr = book.zanr;
-            Vydavatel = book.vydavatel;
-            Stav = null;
+            Genre = book.zanr;
+            Publisher = book.vydavatel;
+            Condition = null;
             conditionId = book.stav;
             bookGateway = new BookGateway();
             Reservation = new Reservation(this);
-            Land = new Land(this);
+            Lend = new Lend(this);
 
         }
 
@@ -71,7 +71,7 @@ namespace DomainLayer
 
         public IBook FindAlternativeBook()
         {
-            var book = bookGateway.FindBookAlternative(Nazev, Id);
+            var book = bookGateway.FindBookAlternative(Name, Id);
             if (book == null)
             {
                 return null;
@@ -93,7 +93,7 @@ namespace DomainLayer
 
         public int DeleteBook()
         {
-            if (Land.IsLanded())
+            if (Lend.IsLanded())
             {
                 return 1;
             } else if (Reservation.IsReserved())

@@ -19,6 +19,12 @@ namespace Web
         {
             booksList = books.FindBook(searchInput.Value);
             System.Diagnostics.Debug.WriteLine("Search lodead");
+
+            if (pageList.Count == 0)
+            {
+                prevPage.Visible = false;
+                nextPage.Visible = false;
+            }
         }
 
         public void updateList()
@@ -40,6 +46,12 @@ namespace Web
                 }
                 listView.DataSource = pageList;
                 listView.DataBind();
+
+                if (pageList.Count > 0)
+                {
+                    prevPage.Visible = true;
+                    nextPage.Visible = true;
+                }
             }
         }
 

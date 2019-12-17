@@ -18,6 +18,26 @@
 
 </head>
 <body>
+    <style>
+        .side {
+            margin-left: 5em;
+        }
+        .round {
+            border-radius: 50px;
+            margin: 1em;
+            width: 10em;
+        }
+        a {
+            color: white;
+        }
+        a:visited{
+            color: white;
+        }
+        a:hover{
+            color: white;
+
+        }
+    </style>
     <form runat="server" style="display: flex">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -39,24 +59,31 @@
             </Scripts>
         </asp:ScriptManager>
 
- <nav id="sidebar" class="ml-4">
+ <nav id="sidebar" class="side">
         <div class="sidebar-header">
             <h3>Prihlaseny uzivatel</h3>
             <h4 runat="server" id="readerName"></h4>
         </div>
-        <ul class="list-unstyled components">
-            <p>Dummy Heading</p>
+        <ul class="list-unstyled components
             <li class="active">
-                <a href="Mybooks.aspx">Moje knihy</a>
+                <button class="round btn btn-primary">
+                    <a href="Mybooks.aspx">Moje knihy
+                                       </a></button>
             </li>
             <li>
-                <a href="Search.aspx">Vyhledat</a>
+                <button class="round btn btn-primary">
+                    <a href="Search.aspx">Vyhledat</a>
+                                       </button>
             </li>
             <li>
-                <a href="#">Ucet</a>
+                <a href="#"><button class="round btn btn-primary">
+                    Ucet
+                                       </button></a>
             </li>
             <li>
-                <a href="#">Odhlasit se</a>
+                <a href="#"><button class="round btn btn-primary">
+                    Odhlasit se
+                                       </button></a>
             </li>
         </ul>
     </nav>

@@ -21,16 +21,16 @@ namespace DomainLayer
         int DeleteBook();
 
          int Id { get; set; }
-         string Nazev { get; set; }
-         string Autor { get; set; }
-         string Jazyk { get; set; }
-         DateTime? RokVydani { get; set; }
+         string Name { get; set; }
+         string Author { get; set; }
+         string Language { get; set; }
+         DateTime? PublishYear { get; set; }
          string Isbn { get; set; }
-         string Zanr { get; set; }
-         string Vydavatel { get; set; }
-         Condition Stav { get; set; }
+         string Genre { get; set; }
+         string Publisher { get; set; }
+         Condition Condition { get; set; }
 
-         Land Land { get; set; }
+         Lend Lend { get; set; }
 
          IReservation Reservation { get; set; }
          }

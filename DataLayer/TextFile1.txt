@@ -1,0 +1,19 @@
+﻿delete from rezervace
+
+select * from vypujcka
+
+select * from vypujcka
+
+select * from kniha where kniha.nazev like '%voda%'
+
+select * from kniha where kniha.nazev like '%dvoj%'
+select * from rezervace where kniha_id = 3208
+insert into rezervace (datum_od, datum_do, ctenar_id, kniha_id) values ('12.24.2019','12.31.2019',2,3208)
+
+select * from rezervace where kniha_id = 4295
+insert into rezervace (datum_od, datum_do, ctenar_id, kniha_id) values ('12.28.2019','01.05.2020',2,3598)
+
+
+select * from rezervace where kniha_id = 3598
+
+delete from rezervace

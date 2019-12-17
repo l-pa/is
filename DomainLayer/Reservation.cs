@@ -15,7 +15,7 @@ namespace DomainLayer
         public DateTime StartOfReservation { get; set; }
         public DateTime EndOfReservation { get; set; }
         public IBook ReservatedBook { get; set; }
-    public IReader Reader { get; set; }
+        public IReader Reader { get; set; }
 
         private ReservationGateway reservationGateway = new ReservationGateway();
 
@@ -98,7 +98,7 @@ namespace DomainLayer
 
             foreach(var reader in reservations)
             {
-                reader.Reader.Notify("Rezervace knihy " + reader.ReservatedBook.Id + " byla zrusena");
+                reader.Reader.Notify("Rezervace knihy " + reader.ReservatedBook.Name + " v case" + reader.StartOfReservation +" do "+ reader.EndOfReservation +" byla zrusena");
             }
             reservationGateway.Delete(ReservatedBook.Id);
         }
@@ -169,7 +169,7 @@ namespace DomainLayer
             dtoReservation.startOfReservation = from;
             dtoReservation.endOfReservation = to;
             reservationGateway.Insert(dtoReservation);
-            Reader.Notify("Kniha " + ReservatedBook.Nazev + " byla rezervovana od " + from.Date + " do " + to.Date);
+            Reader.Notify("Kniha " + ReservatedBook.Name + " byla rezervovana od " + from.Date + " do " + to.Date);
             return null;
         }
 

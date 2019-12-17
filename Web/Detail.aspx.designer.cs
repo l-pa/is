@@ -186,24 +186,6 @@ namespace Web
         protected global::System.Web.UI.HtmlControls.HtmlTableCell rezervovana;
 
         /// <summary>
-        /// reservateButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button reservateButton;
-
-        /// <summary>
-        /// canceButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button canceButton;
-
-        /// <summary>
         /// showCalendar control.
         /// </summary>
         /// <remarks>
@@ -265,5 +247,23 @@ namespace Web
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button cancelReservation;
+
+        /// <summary>
+        /// reservateButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button reservateButton;
+
+        /// <summary>
+        /// canceButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button canceButton;
     }
 }
